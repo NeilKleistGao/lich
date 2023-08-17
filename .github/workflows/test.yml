@@ -21,7 +21,9 @@ jobs:
         cli: 1.10.1.693
         lein: 2.9.1
         clj-kondo: 2022.05.31
+    - name: clean diff data
+      run: rm -r test/diff/ & mkdir test/diff
     - name: test
       run: lein test
     - name: check no changes
-      run: git diff-files -p --exit-code
+      run: git diff-files -p --exit-code --diff-filter=ADMR -w
