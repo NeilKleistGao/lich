@@ -1,5 +1,12 @@
 (ns lich.main
+  (:require lich.touch)
   (:gen-class))
 
-(defn -main []
-  (println "Hello, World!"))
+(defn- print-help []
+  (println "Usage: lich filename"))
+
+(defn -main [& args]
+  (if (seq args)
+    (doseq [arg args] (lich.touch/touch-with-license arg)) ;; TODO: full touch arguments
+    (print-help)
+    ))

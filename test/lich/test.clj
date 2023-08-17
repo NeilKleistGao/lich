@@ -1,7 +1,14 @@
 (ns lich.test
-  (:use [clojure.test :only [deftest is run-tests]]))
+  (:require clojure.test)
+  (:require clojure.string)
+  (:require lich.touch))
 
-(deftest diff-test
-  (is (= 42 42)))
+(defn- test-touch [filename]
+  (println (str "test `lich " filename "`..."))
+  (lich.touch/touch-with-license 
+   (clojure.string/join "/" ["test" "diff" filename])))
 
-(run-tests 'lich.test)
+(clojure.test/deftest diff-test
+  (test-touch "foo.cpp"))
+
+(clojure.test/run-tests 'lich.test)
